@@ -3,6 +3,7 @@ package fi.eatech.fleetmanagerws.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 /**
  * Represents a car of the fleet with unique license plate number.
@@ -18,6 +19,7 @@ public class Car {
     private int modelYear;
     private double engineSize;
     private int enginePower;
+    private LocalDate lastInspection;
 
     public Car() {
     }
@@ -68,5 +70,13 @@ public class Car {
 
     public void setEnginePower(int enginePower) {
         this.enginePower = enginePower;
+    }
+
+    public LocalDate getLastInspection() {
+        return lastInspection;
+    }
+
+    public void setLastInspection(LocalDate lastInspection) {
+        this.lastInspection = lastInspection;
     }
 }
