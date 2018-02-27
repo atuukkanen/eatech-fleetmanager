@@ -16,10 +16,12 @@ public class CarService {
     private CarRepository carRepository;
 
     public Car addCar(Car car) {
-        if (car.getRegistrationNumber() != null) {
+        if (car.getRegistrationNumber() != null
+                && carRepository.findOne(car.getRegistrationNumber()) == null) {
             carRepository.save(car);
         }
-        
+        // TODO: Exception for null or existing car.
+
         return car;
     }
 
