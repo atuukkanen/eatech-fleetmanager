@@ -16,12 +16,39 @@ public class CarService {
     private CarRepository carRepository;
 
     public Car addCar(Car car) {
-        carRepository.save(car);
+        if (car.getRegistrationNumber() != null) {
+            carRepository.save(car);
+        }
+        
         return car;
+    }
+
+    public Car get(String registrationNumber) {
+        return carRepository.findOne(registrationNumber);
     }
 
     public List<Car> getAll() {
         return carRepository.findAll();
+    }
+
+    public List<Car> getBetweenYears(int minYear, int maxYear) {
+        return carRepository.findAllByModelYearBetween(minYear, maxYear);
+    }
+
+    public List<Car> getCarsMadeBy(String make) {
+        return carRepository.findAllByMake(make);
+    }
+
+    public List<Car> getCarsOfModel(String model) {
+        return carRepository.findAllByModel(model);
+    }
+
+    public Car remove(String registrationNumber) {
+        Car toDelete = carRepository.findOne(registrationNumber);
+        if (toDelete != null) {
+            carRepository.delete(registrationNumber);
+        }
+        return toDelete;
     }
 
     @Autowired
