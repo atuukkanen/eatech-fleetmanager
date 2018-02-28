@@ -59,6 +59,12 @@ public class FleetController {
         return carService.addCar(car);
     }
 
+    @ApiOperation(value = "Update an existing car with given id with non-null values from given car object.")
+    @PostMapping("/update/{id}")
+    public Car updateCar(@PathVariable Long id, @RequestBody Car car) {
+        return carService.update(id, car);
+    }
+
     @ApiOperation(value = "Remove a car from the fleet.")
     @DeleteMapping("/id/{carId}")
     public Car removeOne(@PathVariable Long carId) {

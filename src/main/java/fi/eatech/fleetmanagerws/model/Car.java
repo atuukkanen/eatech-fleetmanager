@@ -19,9 +19,9 @@ public class Car extends AbstractPersistable<Long> {
     private String make;
     private String model;
     private String registrationNumber;
-    private int modelYear;
-    private int enginePower;
-    private double engineSize;
+    private Integer modelYear;
+    private Integer enginePower;
+    private Double engineSize;
     private LocalDate lastInspection;
 
     public Car() {
@@ -43,14 +43,6 @@ public class Car extends AbstractPersistable<Long> {
         this.model = model;
     }
 
-    public int getModelYear() {
-        return modelYear;
-    }
-
-    public void setModelYear(int modelYear) {
-        this.modelYear = modelYear;
-    }
-
     public String getRegistrationNumber() {
         return registrationNumber;
     }
@@ -59,20 +51,28 @@ public class Car extends AbstractPersistable<Long> {
         this.registrationNumber = registrationNumber;
     }
 
-    public double getEngineSize() {
-        return engineSize;
+    public Integer getModelYear() {
+        return modelYear;
     }
 
-    public void setEngineSize(double engineSize) {
-        this.engineSize = engineSize;
+    public void setModelYear(Integer modelYear) {
+        this.modelYear = modelYear;
     }
 
-    public int getEnginePower() {
+    public Integer getEnginePower() {
         return enginePower;
     }
 
-    public void setEnginePower(int enginePower) {
+    public void setEnginePower(Integer enginePower) {
         this.enginePower = enginePower;
+    }
+
+    public Double getEngineSize() {
+        return engineSize;
+    }
+
+    public void setEngineSize(Double engineSize) {
+        this.engineSize = engineSize;
     }
 
     public LocalDate getLastInspection() {
@@ -81,5 +81,34 @@ public class Car extends AbstractPersistable<Long> {
 
     public void setLastInspection(LocalDate lastInspection) {
         this.lastInspection = lastInspection;
+    }
+
+    /**
+     * Update car's properties with values from given car object. All null
+     * values get ignored.
+     * @param updateCar The object containing new values for properties.
+     */
+    public void update(Car updateCar) {
+        if (updateCar.getMake() != null) {
+            setMake(updateCar.getMake());
+        }
+        if (updateCar.getModel() != null) {
+            setModel(updateCar.getModel());
+        }
+        if (updateCar.getModelYear() != null) {
+            setModelYear(updateCar.getModelYear());
+        }
+        if (updateCar.getRegistrationNumber() != null) {
+            setRegistrationNumber(updateCar.getRegistrationNumber());
+        }
+        if (updateCar.getEngineSize() != null) {
+            setEngineSize(updateCar.getEngineSize());
+        }
+        if (updateCar.getEnginePower() != null) {
+            setEnginePower(updateCar.getEnginePower());
+        }
+        if (updateCar.getLastInspection() != null) {
+            setLastInspection(updateCar.getLastInspection());
+        }
     }
 }

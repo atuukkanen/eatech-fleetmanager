@@ -3,6 +3,7 @@ package fi.eatech.fleetmanagerws.service;
 import fi.eatech.fleetmanagerws.model.Car;
 import fi.eatech.fleetmanagerws.model.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class CarService {
     }
 
     /**
-     * Get one car with given license plate number.
+     * Get one car with given identifier.
      * @param carId The identifier of the car to find.
      * @return The car, or null if not found.
      */
@@ -92,13 +93,18 @@ public class CarService {
     }
 
     /**
-     * Updates properties of the car with given plate number.
-     * @param carId The id of the car to update.
+     * Updates properties of the car with given identifier.
+     * @param carId The identifier of the car to update.
      * @return The car with updated properties. If no car was found with given
-     *         license plate number, returns null.
+     *         identifier, returns null.
      */
-    public Car update(Long carId) {
-        return null;
+    public Car update(Long carId, Car updateCar) {
+        Car carToUpdate = carRepository.findOne(carId);
+        if (carToUpdate != null) {
+            carToUpdate.update(updateCar);
+            carRepository.save(carToUpdate);
+        }
+        return carToUpdate;
     }
 
     @Autowired
