@@ -48,21 +48,21 @@ public class FleetController {
     }
 
     @ApiOperation(value = "Get the car with specific plate number.")
-    @GetMapping("/{registrationNumber}")
-    public Car getOne(@PathVariable String registrationNumber) {
-        return carService.get(registrationNumber);
+    @GetMapping("/id/{carId}")
+    public Car getOne(@PathVariable Long carId) {
+        return carService.get(carId);
     }
 
     @ApiOperation(value = "Add a new car to the fleet.")
     @PostMapping("/add")
-    public void createNewCar(@RequestBody Car car) {
-        carService.addCar(car);
+    public Car createNewCar(@RequestBody Car car) {
+        return carService.addCar(car);
     }
 
     @ApiOperation(value = "Remove a car from the fleet.")
-    @DeleteMapping("/{registrationNumber}")
-    public Car removeOne(@PathVariable String registrationNumber) {
-        return carService.remove(registrationNumber);
+    @DeleteMapping("/id/{carId}")
+    public Car removeOne(@PathVariable Long carId) {
+        return carService.remove(carId);
     }
 
     @Autowired

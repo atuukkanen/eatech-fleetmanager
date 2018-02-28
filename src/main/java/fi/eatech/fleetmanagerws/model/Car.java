@@ -3,6 +3,7 @@ package fi.eatech.fleetmanagerws.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,17 +15,13 @@ import java.time.LocalDate;
  */
 @Entity
 @ApiModel(description = "Represents a car of the fleet.")
-public class Car {
-    @Id
-    @NotNull
-    @ApiModelProperty(required = true)
-    private String registrationNumber;
-
+public class Car extends AbstractPersistable<Long> {
     private String make;
     private String model;
+    private String registrationNumber;
     private int modelYear;
-    private double engineSize;
     private int enginePower;
+    private double engineSize;
     private LocalDate lastInspection;
 
     public Car() {
