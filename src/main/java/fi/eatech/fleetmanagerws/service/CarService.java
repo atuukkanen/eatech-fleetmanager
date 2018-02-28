@@ -144,10 +144,8 @@ public class CarService {
                 MappingIterator<Car> values = mapper.readerFor(Car.class).with(schema).readValues(csvFile);
                 return values.readAll();
             }
-        } catch (IOException ignorableException) {
-        } finally {
-            return Collections.emptyList();
-
-        }
+        } catch (IOException ignorableException) {}
+        
+        return Collections.emptyList();
     }
 }
