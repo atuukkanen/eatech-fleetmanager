@@ -1,5 +1,9 @@
 package fi.eatech.fleetmanagerws.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import fi.eatech.fleetmanagerws.tool.LocalDateDeserializer;
+import fi.eatech.fleetmanagerws.tool.LocalDateSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Required;
@@ -22,6 +26,9 @@ public class Car extends AbstractPersistable<Long> {
     private Integer modelYear;
     private Integer enginePower;
     private Double engineSize;
+
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate lastInspection;
 
     public Car() {

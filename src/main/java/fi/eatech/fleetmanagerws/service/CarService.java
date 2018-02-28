@@ -1,11 +1,18 @@
 package fi.eatech.fleetmanagerws.service;
 
+import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import fi.eatech.fleetmanagerws.model.Car;
 import fi.eatech.fleetmanagerws.model.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.provider.HibernateUtils;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -110,5 +117,37 @@ public class CarService {
     @Autowired
     public void setCarRepository(CarRepository carRepository) {
         this.carRepository = carRepository;
+    }
+
+    /**
+     * Add values from the csv file to database.
+     */
+    @PostConstruct
+    public void init() {
+        List<Car> cars = loadCarsFromCSV("fleetcars.csv");
+        if (!cars.isEmpty()) {
+            carRepository.save(cars);
+        }
+    }
+
+    /**
+     * Loads cars from CSV file (with headers) and returns them in a list.
+     * @param csvFileName Name of the file to read from.
+     * @return A list of all cars specified in the csv file.
+     */
+    public List<Car> loadCarsFromCSV(String csvFileName) {
+        try {
+            File csvFile = new ClassPathResource(csvFileName).getFile();
+            if (csvFile.canRead()) {
+                CsvMapper mapper = new CsvMapper();
+                CsvSchema schema = mapper.schema().withUseHeader(true);
+                MappingIterator<Car> values = mapper.readerFor(Car.class).with(schema).readValues(csvFile);
+                return values.readAll();
+            }
+        } catch (IOException ignorableException) {
+        } finally {
+            return Collections.emptyList();
+
+        }
     }
 }
