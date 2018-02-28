@@ -14,7 +14,7 @@ In IntelliJ IDEA one can specify environmental variables via Run -> Edit configu
 ## How To Test
 
 ### Swagger Documentation
-The application has Swagger documentation available at `host:8080/swagger-ui.html`
+The application has Swagger documentation available at `host:8080/swagger-ui.html` and https://fleet.segfault.fi/swagger-ui.html
 
 ### Postman
 Postman collection of sample requests is available via following link: https://www.getpostman.com/collections/22b0179bc94e610f5752
