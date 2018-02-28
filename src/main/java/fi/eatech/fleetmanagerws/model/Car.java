@@ -1,5 +1,9 @@
 package fi.eatech.fleetmanagerws.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.springframework.beans.factory.annotation.Required;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -9,9 +13,11 @@ import java.time.LocalDate;
  * Represents a car of the fleet with unique license plate number.
  */
 @Entity
+@ApiModel(description = "Represents a car of the fleet.")
 public class Car {
     @Id
     @NotNull
+    @ApiModelProperty(required = true)
     private String registrationNumber;
 
     private String make;
