@@ -1,0 +1,20 @@
+version: "3"
+services:
+  backend:
+    build: .
+    environment:
+      - DATABASE_URL=jdbc:mysql://mysql:3306/fleetmanager
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=fleetmanager
+    volumes:
+      - /srv/data/fleetmanager/mysql:/var/lib/mysql
