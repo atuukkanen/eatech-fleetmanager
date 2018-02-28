@@ -3,6 +3,7 @@ package fi.eatech.fleetmanagerws.configuration;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -18,6 +19,7 @@ import java.util.Properties;
 import static fi.eatech.fleetmanagerws.configuration.EnvironmentTool.getEnvironmentVariable;
 
 
+@Profile("production")
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
@@ -56,7 +58,6 @@ public class DatabaseConfig {
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", getEnvironmentVariable("JPA_SHOW_SQL", "false"));
         properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
-        //properties.put("hibernate.enable_lazy_load_no_trans",environment.getRequiredProperty("hibernate.enable_lazy_load_no_trans"));
         return properties;
     }
 
